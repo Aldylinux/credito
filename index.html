@@ -6,6 +6,8 @@
     <title>Plataforma Crédito - TecnoAldy</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Librería de Alertas Profesionales -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div id="app-container">
@@ -64,7 +66,7 @@
                         </div>
                         <h3>Nuevo<br>Crédito</h3>
                     </div>
-                    <div class="action-card" onclick="alert('Abriendo Historial (Próxima pantalla)...')">
+                    <div class="action-card" id="btnHistorialDash">
                         <div class="icon-3d">
                             <img src="icono-historial.png" alt="Icono Historial Crédito">
                         </div>
@@ -120,7 +122,7 @@
                             <p>Acepto la autorización de centrales de riesgo.</p>
                         </label>
                     </div>
-                    <button type="submit" class="btn-ingresar">Continuar</button>
+                    <button type="submit" id="btnSubmitValidacion" class="btn-ingresar">Continuar</button>
                 </form>
             </div>
         </section>
@@ -139,13 +141,13 @@
                 </div>
                 <form id="personalInfoForm" class="compact-form">
                     <div class="form-grid">
-                        <div class="input-wrapper"><div class="input-inner"><input type="text" placeholder="Primer Nombre" required></div></div>
-                        <div class="input-wrapper"><div class="input-inner"><input type="text" placeholder="Segundo Nombre (Opcional)"></div></div>
-                        <div class="input-wrapper"><div class="input-inner"><input type="text" placeholder="Primer Apellido" required></div></div>
-                        <div class="input-wrapper"><div class="input-inner"><input type="text" placeholder="Segundo Apellido (Opcional)"></div></div>
+                        <div class="input-wrapper"><div class="input-inner"><input type="text" id="nombre1" placeholder="Primer Nombre" required></div></div>
+                        <div class="input-wrapper"><div class="input-inner"><input type="text" id="nombre2" placeholder="Segundo Nombre (Opcional)"></div></div>
+                        <div class="input-wrapper"><div class="input-inner"><input type="text" id="apellido1" placeholder="Primer Apellido" required></div></div>
+                        <div class="input-wrapper"><div class="input-inner"><input type="text" id="apellido2" placeholder="Segundo Apellido (Opcional)"></div></div>
                     </div>
                     <div class="input-wrapper" style="margin-top: 15px;">
-                        <div class="input-inner"><i class="far fa-calendar-alt"></i><input type="text" placeholder="Fecha nacimiento" onfocus="(this.type='date')" onblur="(this.type='text')" required></div>
+                        <div class="input-inner"><i class="far fa-calendar-alt"></i><input type="text" id="fechaNac" placeholder="Fecha nacimiento" onfocus="(this.type='date')" onblur="(this.type='text')" required></div>
                     </div>
                     
                     <div class="form-grid" style="margin-top: 15px;">
@@ -158,21 +160,21 @@
                             </div>
                         </div>
                         <div class="input-wrapper">
-                            <div class="input-inner"><input type="text" placeholder="Ciudad Nacimiento" required></div>
+                            <div class="input-inner"><input type="text" id="ciudadNac" placeholder="Ciudad Nacimiento" required></div>
                         </div>
                     </div>
 
                     <div class="input-wrapper" style="margin-top: 15px;">
                         <div class="input-inner">
                             <span class="input-prefix">+57</span><div class="prefix-divider"></div>
-                            <input type="tel" placeholder="Número Celular" required>
+                            <input type="tel" id="celular" placeholder="Número Celular" required>
                         </div>
                     </div>
                     <div class="input-wrapper" style="margin-top: 15px;">
                         <div class="input-inner">
                             <span class="input-prefix" style="color: #48cae4;">@</span>
                             <div class="prefix-divider"></div>
-                            <input type="email" placeholder="Email" required>
+                            <input type="email" id="emailCliente" placeholder="Email" required>
                         </div>
                     </div>
 
@@ -191,7 +193,7 @@
 
                     <div class="input-wrapper">
                         <div class="input-inner">
-                            <select required class="custom-select">
+                            <select id="actividadEco" required class="custom-select">
                                 <option value="" disabled selected>Actividad Económica</option>
                                 <option value="Empleado">Empleado</option>
                                 <option value="Independiente">Independiente</option>
@@ -212,11 +214,11 @@
                             </div>
                         </div>
                         <div class="input-wrapper">
-                            <div class="input-inner"><input type="text" placeholder="Ciudad Residencia" required></div>
+                            <div class="input-inner"><input type="text" id="ciudadRes" placeholder="Ciudad Residencia" required></div>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn-ingresar" style="margin-top: 25px;">Continuar</button>
+                    <button type="submit" id="btnSubmitPersonal" class="btn-ingresar" style="margin-top: 25px;">Guardar Cliente y Continuar</button>
                 </form>
             </div>
         </section>
@@ -224,7 +226,6 @@
         <!-- PANTALLA 5: DATOS DEL CRÉDITO Y EQUIPO -->
         <section id="credit-info-screen" class="hidden-screen">
             <div class="login-card scrollable-card">
-                <!-- ID cambiado a btnBackFromCredit para que sea inteligente -->
                 <button class="btn-back" id="btnBackFromCredit">
                     <i class="fas fa-arrow-left"></i> Volver
                 </button>
@@ -284,7 +285,7 @@
 
                     <div class="quotas-container" id="quotasContainer">
                         <label class="quota-card">
-                            <input type="radio" name="plan_cuotas" value="4_quincenas" required>
+                            <input type="radio" name="plan_cuotas" value="4 Quincenas" required>
                             <div class="quota-inner">
                                 <div class="quota-badge blue-badge">4</div>
                                 <div class="quota-text">Cuotas<br>Quincenales</div>
@@ -292,7 +293,7 @@
                             </div>
                         </label>
                         <label class="quota-card">
-                            <input type="radio" name="plan_cuotas" value="6_quincenas">
+                            <input type="radio" name="plan_cuotas" value="6 Quincenas">
                             <div class="quota-inner">
                                 <div class="quota-badge blue-badge">6</div>
                                 <div class="quota-text">Cuotas<br>Quincenales</div>
@@ -300,7 +301,7 @@
                             </div>
                         </label>
                         <label class="quota-card">
-                            <input type="radio" name="plan_cuotas" value="2_meses">
+                            <input type="radio" name="plan_cuotas" value="2 Meses">
                             <div class="quota-inner">
                                 <div class="quota-badge purple-badge">2</div>
                                 <div class="quota-text">Cuotas<br>Mensuales</div>
@@ -308,7 +309,7 @@
                             </div>
                         </label>
                         <label class="quota-card">
-                            <input type="radio" name="plan_cuotas" value="3_meses">
+                            <input type="radio" name="plan_cuotas" value="3 Meses">
                             <div class="quota-inner">
                                 <div class="quota-badge purple-badge">3</div>
                                 <div class="quota-text">Cuotas<br>Mensuales</div>
@@ -317,17 +318,36 @@
                         </label>
                     </div>
 
-                    <button type="submit" class="btn-ingresar" style="margin-top: 25px;">Registrar Venta a Crédito</button>
+                    <button type="submit" id="btnSubmitCredito" class="btn-ingresar" style="margin-top: 25px;">Registrar Venta a Crédito</button>
                 </form>
             </div>
         </section>
 
     </div>
 
-    <script>
+    <!-- SCRIPT TIPO MÓDULO PARA IMPORTAR FIREBASE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA7OuWiQtRSueSqvZ5_Her_clg19HQ55L8",
+            authDomain: "plataforma-credito-tecnoaldy.firebaseapp.com",
+            projectId: "plataforma-credito-tecnoaldy",
+            storageBucket: "plataforma-credito-tecnoaldy.firebasestorage.app",
+            messagingSenderId: "989085549145",
+            appId: "1:989085549145:web:18393f2a0879a9c8e8e748"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        let cedulaActualTramite = ""; 
+        let elClienteEsAntiguo = false; 
+
         const usuariosTecnoAldy = {
-            "cuentauueeduber@gmail.com": "DUBER",
-            "tecnoaldy2022@gmail.com": "ALDY",
+            "cuentauueeduber@gmail.com": { nombre: "DUBER", password: "Aldy1002731820" },
+            "tecnoaldy2022@gmail.com": { nombre: "ALDY", password: "Aldy1002731820" }
         };
 
         const departamentosColombia = [
@@ -338,24 +358,10 @@
             "Santander", "Sucre", "Tolima", "Valle del Cauca", "Vaupés", "Vichada"
         ];
 
-        // --- SISTEMA DE BASE DE DATOS SIMULADA ---
-        function obtenerClientesRegistrados() {
-            let clientesStr = localStorage.getItem('bd_clientes_tecnoaldy');
-            return clientesStr ? JSON.parse(clientesStr) : {};
-        }
-        function guardarCliente(cedula) {
-            let clientes = obtenerClientesRegistrados();
-            clientes[cedula] = { registrado: true };
-            localStorage.setItem('bd_clientes_tecnoaldy', JSON.stringify(clientes));
-        }
-
-        let cedulaActualTramite = ""; // Variable para saber a quién estamos atendiendo
-        let elClienteEsAntiguo = false; 
-
-        // Elementos
         const loginForm = document.getElementById('loginForm');
         const btnLogout = document.getElementById('btnLogout');
         const btnNuevoCredito = document.getElementById('btnNuevoCredito');
+        const btnHistorialDash = document.getElementById('btnHistorialDash');
         const btnBackToDash = document.getElementById('btnBackToDash');
         const btnBackToValidation = document.getElementById('btnBackToValidation');
         const btnBackFromCredit = document.getElementById('btnBackFromCredit');
@@ -371,19 +377,32 @@
         const creditInfoScreen = document.getElementById('credit-info-screen');
         const userNameSpan = document.getElementById('userName');
 
+        // FUNCIÓN CREADORA DE ALERTAS (Reemplaza los alerts nativos)
+        function mostrarAlerta(titulo, mensaje, tipoIcono) {
+            Swal.fire({
+                title: titulo,
+                text: mensaje,
+                icon: tipoIcono,
+                background: '#14161e',
+                color: '#ffffff',
+                confirmButtonColor: '#8a2be2',
+                backdrop: `rgba(0,0,0,0.7)`,
+                customClass: { popup: 'glass-alert' }
+            });
+        }
+
         function irAPantalla(pantallaOcultar, pantallaMostrar) {
             pantallaOcultar.classList.replace('active-screen', 'hidden-screen');
             pantallaMostrar.classList.replace('hidden-screen', 'active-screen');
             localStorage.setItem('pantallaActualTecnoAldy', pantallaMostrar.id);
         }
 
-        window.onload = function() {
+        document.addEventListener('DOMContentLoaded', () => {
             const selectNacimiento = document.getElementById('deptNacimiento');
             const selectResidencia = document.getElementById('deptResidencia');
-            
             departamentosColombia.forEach(dept => {
-                let opt1 = document.createElement('option'); opt1.value = dept; opt1.textContent = dept; selectNacimiento.appendChild(opt1);
-                let opt2 = document.createElement('option'); opt2.value = dept; opt2.textContent = dept; selectResidencia.appendChild(opt2);
+                selectNacimiento.appendChild(new Option(dept, dept));
+                selectResidencia.appendChild(new Option(dept, dept));
             });
 
             const usuarioGuardado = localStorage.getItem('usuarioTecnoAldy');
@@ -398,18 +417,30 @@
                     dashboardScreen.classList.replace('hidden-screen', 'active-screen');
                 }
             }
-        };
-
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const emailIngresado = document.getElementById('email').value.trim().toLowerCase();
-            let nombreUsuario = usuariosTecnoAldy[emailIngresado] ? usuariosTecnoAldy[emailIngresado] : emailIngresado.split('@')[0].toUpperCase();
-            userNameSpan.textContent = nombreUsuario;
-            localStorage.setItem('usuarioTecnoAldy', nombreUsuario);
-            irAPantalla(loginScreen, dashboardScreen);
         });
 
-        btnLogout.addEventListener('click', function() {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const emailIngresado = document.getElementById('email').value.trim().toLowerCase();
+            const passwordIngresado = document.getElementById('password').value;
+            
+            if(usuariosTecnoAldy[emailIngresado]) {
+                if(usuariosTecnoAldy[emailIngresado].password === passwordIngresado) {
+                    let nombreUsuario = usuariosTecnoAldy[emailIngresado].nombre;
+                    userNameSpan.textContent = nombreUsuario;
+                    localStorage.setItem('usuarioTecnoAldy', nombreUsuario);
+                    irAPantalla(loginScreen, dashboardScreen);
+                } else {
+                    mostrarAlerta("Error de Acceso", "Contraseña incorrecta. Por favor, intenta de nuevo.", "error");
+                }
+            } else {
+                mostrarAlerta("Acceso Denegado", "Este correo no está autorizado en el sistema.", "error");
+                document.getElementById('email').value = '';
+                document.getElementById('password').value = '';
+            }
+        });
+
+        btnLogout.addEventListener('click', () => {
             document.getElementById('email').value = ''; document.getElementById('password').value = '';
             localStorage.removeItem('usuarioTecnoAldy'); localStorage.removeItem('pantallaActualTecnoAldy');
             document.querySelectorAll('section').forEach(p => { p.classList.remove('active-screen'); p.classList.add('hidden-screen'); });
@@ -419,42 +450,80 @@
         btnNuevoCredito.addEventListener('click', () => irAPantalla(dashboardScreen, validationScreen));
         btnBackToDash.addEventListener('click', () => irAPantalla(validationScreen, dashboardScreen));
         
-        // --- AQUÍ OCURRE LA MAGIA DE DETECTAR AL CLIENTE ---
-        validationForm.addEventListener('submit', (e) => { 
+        btnHistorialDash.addEventListener('click', () => {
+            mostrarAlerta("Próximamente", "Abriendo Historial...", "info");
+        });
+        
+        validationForm.addEventListener('submit', async (e) => { 
             e.preventDefault(); 
-            cedulaActualTramite = document.getElementById('docNumber').value;
-            let clientesBaseDatos = obtenerClientesRegistrados();
+            const btn = document.getElementById('btnSubmitValidacion');
+            btn.textContent = "Buscando...";
+            btn.disabled = true;
 
-            if(clientesBaseDatos[cedulaActualTramite]) {
-                // EL CLIENTE EXISTE: Salta a la venta del equipo
-                elClienteEsAntiguo = true;
-                irAPantalla(validationScreen, creditInfoScreen);
-            } else {
-                // EL CLIENTE ES NUEVO: Pasa a pedir los datos
-                elClienteEsAntiguo = false;
-                irAPantalla(validationScreen, personalInfoScreen);
+            cedulaActualTramite = document.getElementById('docNumber').value;
+
+            try {
+                const docRef = doc(db, "clientes", cedulaActualTramite);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    elClienteEsAntiguo = true;
+                    irAPantalla(validationScreen, creditInfoScreen);
+                } else {
+                    elClienteEsAntiguo = false;
+                    irAPantalla(validationScreen, personalInfoScreen);
+                }
+            } catch (error) {
+                console.error("Error conectando a Firebase:", error);
+                mostrarAlerta("Error de Conexión", "Revisa tu conexión a internet e intenta de nuevo.", "error");
+            } finally {
+                btn.textContent = "Continuar";
+                btn.disabled = false;
             }
         });
 
         btnBackToValidation.addEventListener('click', () => irAPantalla(personalInfoScreen, validationScreen));
         
-        // --- GUARDAR AL NUEVO CLIENTE ---
-        personalInfoForm.addEventListener('submit', (e) => { 
+        personalInfoForm.addEventListener('submit', async (e) => { 
             e.preventDefault(); 
-            guardarCliente(cedulaActualTramite); // Guarda la cédula en la BD
-            irAPantalla(personalInfoScreen, creditInfoScreen); 
-        });
+            const btn = document.getElementById('btnSubmitPersonal');
+            btn.textContent = "Guardando...";
+            btn.disabled = true;
 
-        // --- BOTON VOLVER INTELIGENTE DESDE LA VENTA ---
-        btnBackFromCredit.addEventListener('click', () => {
-            if(elClienteEsAntiguo) {
-                irAPantalla(creditInfoScreen, validationScreen);
-            } else {
-                irAPantalla(creditInfoScreen, personalInfoScreen);
+            const clienteData = {
+                cedula: cedulaActualTramite,
+                tipoDoc: document.getElementById('docType').value,
+                nombres: `${document.getElementById('nombre1').value} ${document.getElementById('nombre2').value}`.trim(),
+                apellidos: `${document.getElementById('apellido1').value} ${document.getElementById('apellido2').value}`.trim(),
+                fechaNacimiento: document.getElementById('fechaNac').value,
+                departamentoNacimiento: document.getElementById('deptNacimiento').value,
+                ciudadNacimiento: document.getElementById('ciudadNac').value,
+                celular: document.getElementById('celular').value,
+                email: document.getElementById('emailCliente').value,
+                sexo: document.querySelector('input[name="sexo"]:checked').value,
+                actividadEconomica: document.getElementById('actividadEco').value,
+                departamentoResidencia: document.getElementById('deptResidencia').value,
+                ciudadResidencia: document.getElementById('ciudadRes').value,
+                fechaRegistro: serverTimestamp()
+            };
+
+            try {
+                await setDoc(doc(db, "clientes", cedulaActualTramite), clienteData);
+                irAPantalla(personalInfoScreen, creditInfoScreen); 
+            } catch (error) {
+                console.error("Error guardando cliente:", error);
+                mostrarAlerta("Error al Guardar", "No se pudo registrar la información del cliente.", "error");
+            } finally {
+                btn.textContent = "Guardar Cliente y Continuar";
+                btn.disabled = false;
             }
         });
 
-        // --- LÓGICA DE NÚMEROS E INTERESES ---
+        btnBackFromCredit.addEventListener('click', () => {
+            if(elClienteEsAntiguo) { irAPantalla(creditInfoScreen, validationScreen); } 
+            else { irAPantalla(creditInfoScreen, personalInfoScreen); }
+        });
+
         const inputValor = document.getElementById('valorArticulo');
         const inputInicial = document.getElementById('cuotaInicial');
         const itemType = document.getElementById('itemType');
@@ -471,7 +540,6 @@
         function calcularInicialAutomatica() {
             let valor = parseInt(inputValor.value.replace(/\D/g, '')) || 0;
             let tipo = itemType.value;
-
             if (valor > 0 && tipo) {
                 let porcentaje = 0;
                 if (tipo === 'Celular') porcentaje = 200000 / 700000; 
@@ -479,7 +547,6 @@
                 else if (tipo === 'Audio') porcentaje = 0.25; 
                 else if (tipo === 'Accesorios') porcentaje = 10000 / 30000; 
                 else porcentaje = 0.30;
-
                 let inicialCalc = Math.round((valor * porcentaje) / 1000) * 1000;
                 inputInicial.value = inicialCalc.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
                 calcularCuotas();
@@ -492,7 +559,6 @@
             
             let interesFijo = 180000; 
             if (valor >= 1000000) { interesFijo = 300000; }
-
             let saldoRestante = valor - inicial;
             
             if(valor > 0 && saldoRestante >= 0) {
@@ -511,15 +577,54 @@
         inputValor.addEventListener('input', function() { formatoMiles(this); calcularInicialAutomatica(); });
         inputInicial.addEventListener('input', function() { formatoMiles(this); calcularCuotas(); });
 
-        creditInfoForm.addEventListener('submit', function(e) {
+        creditInfoForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            alert('¡Venta registrada con éxito en TecnoAldy! Próximamente esto alimentará el Historial.');
-            irAPantalla(creditInfoScreen, dashboardScreen);
-            creditInfoForm.reset();
-            validationForm.reset();
-            calcularCuotas();
-        });
+            const btn = document.getElementById('btnSubmitCredito');
+            btn.textContent = "Registrando Venta...";
+            btn.disabled = true;
 
+            const cuotasPlanEscogido = document.querySelector('input[name="plan_cuotas"]:checked').value;
+            let valorCuotaText = "$0";
+            if(cuotasPlanEscogido.includes("4")) valorCuotaText = lbl_4q.textContent;
+            if(cuotasPlanEscogido.includes("6")) valorCuotaText = lbl_6q.textContent;
+            if(cuotasPlanEscogido.includes("2")) valorCuotaText = lbl_2m.textContent;
+            if(cuotasPlanEscogido.includes("3")) valorCuotaText = lbl_3m.textContent;
+
+            const valorFinal = parseInt(inputValor.value.replace(/\D/g, ''));
+            const inicialFinal = parseInt(inputInicial.value.replace(/\D/g, ''));
+            const interesFijo = (valorFinal >= 1000000) ? 300000 : 180000;
+
+            const ventaData = {
+                cedulaCliente: cedulaActualTramite,
+                vendedor: userNameSpan.textContent,
+                tipoArticulo: itemType.value,
+                referencia: document.getElementById('itemReference').value,
+                valorArticulo: valorFinal,
+                cuotaInicial: inicialFinal,
+                interesAplicado: interesFijo,
+                saldoFinanciado: (valorFinal - inicialFinal) + interesFijo,
+                planCuotas: cuotasPlanEscogido,
+                valorPorCuota: valorCuotaText,
+                estado: "Activo",
+                fechaVenta: serverTimestamp()
+            };
+
+            try {
+                await addDoc(collection(db, "creditos"), ventaData);
+                mostrarAlerta("¡Crédito Aprobado!", "La venta a cuotas fue registrada exitosamente.", "success");
+                irAPantalla(creditInfoScreen, dashboardScreen);
+                creditInfoForm.reset();
+                validationForm.reset();
+                personalInfoForm.reset();
+                calcularCuotas();
+            } catch (error) {
+                console.error("Error registrando crédito:", error);
+                mostrarAlerta("Error al Registrar", "Ocurrió un problema guardando el crédito.", "error");
+            } finally {
+                btn.textContent = "Registrar Venta a Crédito";
+                btn.disabled = false;
+            }
+        });
     </script>
 </body>
 </html>
