@@ -1,0 +1,671 @@
+/* Reseteo básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #0b0c10; /* Fondo oscuro premium */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden; /* Evita scroll por los brillos de fondo */
+    position: relative;
+}
+
+/* Brillos abstractos de fondo azul y morado */
+.bg-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    z-index: 0;
+    opacity: 0.6;
+}
+.glow-blue-extra {
+    width: 200px; height: 200px;
+    background: #00d2ff;
+    top: 40%; left: 5%; /* Lo ubica a la izquierda del formulario */
+    opacity: 0.4;
+}
+.glow-purple-extra {
+    width: 220px; height: 220px;
+    background: #8a2be2;
+    bottom: 20%; right: 5%; /* Lo ubica a la derecha del formulario */
+    opacity: 0.45;
+}
+
+/* Tarjeta principal del Login (Efecto Cristal Premium) */
+.login-card {
+    background: rgba(15, 17, 25, 0.45); /* Más transparente */
+    backdrop-filter: blur(25px); /* Efecto cristal más fuerte */
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Borde blanco ultra sutil */
+    border-radius: 24px;
+    padding: 50px 40px;
+    width: 90%;
+    max-width: 420px;
+    z-index: 1;
+    position: relative;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+}
+
+/* Zona superior: Logo y Texto */
+.header-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 45px;
+}
+.logo {
+    width: 70px;
+    height: auto;
+    border-radius: 14px;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3); /* Ligero brillo morado detrás del logo */
+}
+.vertical-divider {
+    width: 1px; /* Línea más fina y elegante */
+    height: 50px;
+    background: linear-gradient(to bottom, transparent, #8a2be2, #3a7bd5, transparent);
+    margin: 0 20px;
+}
+.brand-text h2 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    background: linear-gradient(to right, #9d4edd, #48cae4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1.5px;
+}
+.brand-text p {
+    font-size: 0.8rem;
+    color: #8b8b99;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Formulario e Inputs */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Bordes de los inputs más finos y elegantes */
+.input-wrapper {
+    background: rgba(255, 255, 255, 0.1); /* Borde apagado por defecto */
+    padding: 1px; /* Borde súper fino */
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+/* Efecto Neón cuando haces clic para escribir */
+.input-wrapper:focus-within {
+    background: linear-gradient(45deg, #8a2be2, #3a7bd5);
+    box-shadow: 0 0 15px rgba(58, 123, 213, 0.2);
+}
+
+.input-inner {
+    display: flex;
+    align-items: center;
+    background-color: rgba(12, 14, 20, 0.95); /* Fondo casi negro */
+    border-radius: 50px;
+    padding: 15px 22px;
+}
+.input-inner i {
+    color: #6a6a7a; /* Icono gris por defecto */
+    font-size: 1.1rem;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+}
+
+/* El icono se pinta de color al escribir */
+.input-wrapper:focus-within .input-inner i {
+    color: #48cae4; 
+}
+
+.input-inner input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    width: 100%;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+}
+.input-inner input::placeholder {
+    color: #555566;
+}
+
+/* Enlaces y Botones */
+.forgot-link {
+    text-align: right;
+    color: #8b8b99;
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-top: -5px;
+    transition: color 0.3s;
+}
+.forgot-link:hover {
+    color: #48cae4;
+}
+
+.btn-ingresar {
+    background: linear-gradient(45deg, #3a7bd5, #8a2be2);
+    color: #ffffff;
+    border: none;
+    padding: 16px;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.btn-ingresar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(138, 43, 226, 0.4);
+    background: linear-gradient(45deg, #48cae4, #9d4edd);
+}
+
+/* Clases para controlar la arquitectura de sub-páginas */
+.active-screen {
+    display: block;
+    animation: fadeIn 0.4s ease-in-out;
+}
+.hidden-screen {
+    display: none;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   ESTILOS PANTALLA 2: DASHBOARD
+   ========================================= */
+
+.dashboard-container {
+    width: 90%;
+    max-width: 500px;
+    z-index: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 15px;
+}
+
+/* Cabecera del Dash */
+.dash-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+}
+.logo-small {
+    width: 60px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 15px rgba(58, 123, 213, 0.3);
+}
+.greeting-title {
+    font-size: 2.2rem;
+    color: #ffffff;
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: 1px;
+}
+.text-neon {
+    background: linear-gradient(to right, #9d4edd, #48cae4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+}
+.greeting-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #a0a0b0;
+    font-weight: 300;
+    margin-top: 5px;
+    letter-spacing: 0.5px;
+}
+
+/* Cuadrícula de Tarjetas */
+.action-grid {
+    display: flex;
+    gap: 25px;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+/* Tarjetas de Cristal */
+.action-card {
+    background: rgba(20, 22, 30, 0.5);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 25px;
+    padding: 35px 20px;
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+}
+.action-card:hover {
+    transform: translateY(-10px);
+    background: rgba(30, 32, 45, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.action-card:hover .neon-blue {
+    box-shadow: 0 0 25px rgba(72, 202, 228, 0.6);
+}
+.action-card:hover .neon-purple {
+    box-shadow: 0 0 25px rgba(157, 78, 221, 0.6);
+}
+
+/* Iconos de las tarjetas */
+.icon-container {
+    width: 70px;
+    height: 70px;
+    border-radius: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    margin-bottom: 15px;
+    position: relative;
+    background: #12141d;
+    transition: all 0.3s ease;
+}
+.neon-blue {
+    color: #48cae4;
+    border: 1px solid rgba(72, 202, 228, 0.3);
+}
+.neon-purple {
+    color: #9d4edd;
+    border: 1px solid rgba(157, 78, 221, 0.3);
+}
+
+.float-icon {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    font-size: 1rem;
+    color: #ffd700; /* Color oro/amarillo para las monedas/estrellas */
+}
+
+.action-card h3 {
+    color: #ffffff;
+    font-size: 1.1rem;
+    text-align: center;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+/* Footer del Dash (Cerrar Sesión y Copyright) */
+.dash-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.btn-logout {
+    background: transparent;
+    border: 1px solid #ff4d4d;
+    color: #ff4d4d;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.btn-logout:hover {
+    background: rgba(255, 77, 77, 0.1);
+    box-shadow: 0 0 15px rgba(255, 77, 77, 0.3);
+}
+
+.copyright {
+    color: #555566;
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+.icon-3d {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+.icon-3d img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.5)); /* Le da una sombra realista al ícono 3D */
+}
+.action-card:hover .icon-3d {
+    transform: scale(1.15) translateY(-5px); /* El ícono salta un poco al pasar el mouse */
+}
+
+/* =========================================
+   ESTILOS PANTALLA 3: VALIDACIÓN
+   ========================================= */
+
+/* Botón Volver */
+.btn-back {
+    background: transparent;
+    border: none;
+    color: #a0a0b0;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 25px;
+    transition: color 0.3s ease;
+}
+.btn-back:hover {
+    color: #48cae4;
+}
+
+/* Selector de Documento (Select) */
+.custom-select {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    width: 100%;
+    font-size: 0.95rem;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+.custom-select option {
+    background-color: #12141d;
+    color: #ffffff;
+    padding: 10px;
+}
+
+/* Estilos de Checkboxes Personalizados */
+.custom-checkbox {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: #8b8b99;
+    user-select: none;
+    gap: 12px;
+}
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+.checkmark {
+    min-width: 22px;
+    height: 22px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    margin-top: 2px;
+}
+/* Efecto hover en el checkbox */
+.custom-checkbox:hover input ~ .checkmark {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #48cae4;
+}
+/* Efecto marcado (Checked) */
+.custom-checkbox input:checked ~ .checkmark {
+    background: linear-gradient(45deg, #3a7bd5, #8a2be2);
+    border: none;
+    box-shadow: 0 0 12px rgba(138, 43, 226, 0.4);
+}
+/* Ícono de chulo (Check) interior */
+.checkmark:after {
+    content: "\f00c"; /* Código FontAwesome para el check */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: white;
+    font-size: 13px;
+    display: none;
+}
+.custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+.custom-checkbox p {
+    line-height: 1.4;
+}
+.custom-checkbox strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* =========================================
+   ESTILOS PANTALLA 4: INFORMACIÓN PERSONAL
+   ========================================= */
+
+/* Hacer la tarjeta scrolleable para formularios largos */
+.scrollable-card {
+    max-height: 85vh; /* Ocupa máximo el 85% de la pantalla */
+    overflow-y: auto; /* Permite deslizar hacia abajo */
+    padding-top: 30px;
+    padding-bottom: 40px;
+}
+
+/* Diseño de la barra de scroll para que no se vea fea */
+.scrollable-card::-webkit-scrollbar {
+    width: 6px;
+}
+.scrollable-card::-webkit-scrollbar-track {
+    background: transparent;
+}
+.scrollable-card::-webkit-scrollbar-thumb {
+    background: rgba(138, 43, 226, 0.4);
+    border-radius: 10px;
+}
+
+/* Ajustes del formulario compacto */
+.compact-form {
+    gap: 15px; /* Menos espacio entre inputs para que quepan más */
+}
+
+/* Cuadrícula para poner 2 inputs en la misma fila (Ej: Primer/Segundo Nombre) */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.form-grid .input-inner {
+    padding: 12px 15px; /* Un poco más delgados */
+}
+.form-grid input {
+    font-size: 0.85rem; /* Letra un toque más pequeña para que quepa */
+}
+
+/* Ajuste del ícono de los select */
+.select-icon {
+    color: #6a6a7a; 
+    margin-right: 0; 
+    margin-left: auto;
+}
+
+/* Estilos de Prefijos (+57 y @) */
+.input-prefix {
+    color: #9d4edd;
+    font-weight: 800;
+    font-size: 0.95rem;
+}
+.prefix-divider {
+    width: 1px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    margin: 0 12px;
+}
+
+/* Línea separadora visual */
+.form-divider {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+    margin: 10px 0;
+}
+
+/* ESTILOS DEL SELECTOR DE SEXO (Hombre / Mujer) */
+.gender-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 5px 0;
+}
+.gender-label-main {
+    color: #8b8b99;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.toggle-wrapper {
+    display: flex;
+    background: rgba(12, 14, 20, 0.95);
+    border-radius: 50px;
+    padding: 4px;
+    flex: 1;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+}
+.toggle-wrapper input {
+    display: none; /* Ocultamos los circulitos por defecto del radio button */
+}
+.toggle-wrapper label {
+    flex: 1;
+    text-align: center;
+    padding: 8px 5px;
+    cursor: pointer;
+    color: #6a6a7a;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    border-radius: 50px;
+}
+
+/* Cuando la opción está seleccionada (Efecto Neón) */
+.toggle-wrapper input:checked + label {
+    color: #ffffff;
+    font-weight: 700;
+    background: linear-gradient(45deg, #3a7bd5, #8a2be2);
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+}
+
+/* =========================================
+   ESTILOS PANTALLA 5: DATOS DEL CRÉDITO
+   ========================================= */
+
+.quotas-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Tarjeta contenedora tipo Radio Button */
+.quota-card {
+    position: relative;
+    cursor: pointer;
+    width: 100%;
+}
+.quota-card input[type="radio"] {
+    display: none; /* Ocultamos el círculo base */
+}
+
+/* Diseño interior de la tarjeta de cuota */
+.quota-inner {
+    display: flex;
+    align-items: center;
+    background: rgba(12, 14, 20, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px; /* Bordes redondeados como en la imagen */
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+
+/* Efecto cuando se selecciona una cuota */
+.quota-card input[type="radio"]:checked + .quota-inner {
+    background: linear-gradient(to right, rgba(58, 123, 213, 0.1), rgba(138, 43, 226, 0.1));
+    border-color: #9d4edd;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+}
+
+/* El círculo con el número de cuotas */
+.quota-badge {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-right: 15px;
+    background: transparent;
+}
+.blue-badge {
+    border: 2px solid #48cae4;
+    color: #48cae4;
+}
+.purple-badge {
+    border: 2px solid #9d4edd;
+    color: #9d4edd;
+}
+
+/* Texto de "Cuotas Quincenales/Mensuales" */
+.quota-text {
+    flex: 1; /* Ocupa el espacio del medio */
+    color: #a0a0b0;
+    font-size: 0.85rem;
+    line-height: 1.2;
+}
+
+/* El valor a pagar en grande a la derecha */
+.quota-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+/* Cambio de color del texto al seleccionar */
+.quota-card input[type="radio"]:checked + .quota-inner .quota-text {
+    color: #ffffff;
+    font-weight: 600;
+}
+.quota-card input[type="radio"]:checked + .quota-inner .quota-price {
+    background: linear-gradient(to right, #48cae4, #9d4edd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.2rem;
+}

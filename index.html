@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma Crédito - TecnoAldy</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="app-container">
+        <!-- Luces de fondo -->
+        <div class="bg-glow glow-blue"></div>
+        <div class="bg-glow glow-purple"></div>
+        <div class="bg-glow glow-blue-extra"></div>
+        <div class="bg-glow glow-purple-extra"></div>
+
+        <!-- PANTALLA 1: LOGIN -->
+        <section id="login-screen" class="active-screen">
+            <div class="login-card">
+                <div class="header-brand">
+                    <img src="logo.png" alt="Logo TecnoAldy" class="logo">
+                    <div class="vertical-divider"></div>
+                    <div class="brand-text">
+                        <h2>TECNOALDY</h2>
+                        <p>PLATAFORMA CRÉDITO</p>
+                    </div>
+                </div>
+
+                <form id="loginForm">
+                    <div class="input-wrapper">
+                        <div class="input-inner">
+                            <i class="far fa-envelope"></i>
+                            <input type="email" id="email" placeholder="Email" required>
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <div class="input-inner">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" placeholder="Contraseña" required>
+                        </div>
+                    </div>
+                    <a href="#" class="forgot-link">¿Olvidaste tu Contraseña?</a>
+                    <button type="submit" class="btn-ingresar">Ingresar</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- PANTALLA 2: DASHBOARD -->
+        <section id="dashboard-screen" class="hidden-screen">
+            <div class="dashboard-container">
+                <div class="dash-header">
+                    <img src="logo.png" alt="Logo TecnoAldy" class="logo-small">
+                    <div class="greeting-area">
+                        <h1 class="greeting-title">¡Hola <span id="userName" class="text-neon">TecnoAldy</span>!</h1>
+                        <p class="greeting-subtitle">Iniciemos un trámite</p>
+                    </div>
+                </div>
+
+                <div class="action-grid">
+                    <div class="action-card" id="btnNuevoCredito">
+                        <div class="icon-3d">
+                            <img src="icono-nuevo.png" alt="Icono Nuevo Crédito">
+                        </div>
+                        <h3>Nuevo<br>Crédito</h3>
+                    </div>
+                    <div class="action-card" onclick="alert('Abriendo Historial (Próxima pantalla)...')">
+                        <div class="icon-3d">
+                            <img src="icono-historial.png" alt="Icono Historial Crédito">
+                        </div>
+                        <h3>Historial<br>Crédito</h3>
+                    </div>
+                </div>
+
+                <div class="dash-footer">
+                    <button id="btnLogout" class="btn-logout">
+                        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                    </button>
+                    <p class="copyright">Copyright © 2026 TecnoAldy. Reservados todos los derechos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PANTALLA 3: VALIDACIÓN DE DOCUMENTO -->
+        <section id="validation-screen" class="hidden-screen">
+            <div class="login-card" style="padding-top: 30px;">
+                <button class="btn-back" id="btnBackToDash">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </button>
+                <div class="header-brand" style="margin-bottom: 25px;">
+                    <h2 class="greeting-title" style="font-size: 1.8rem;">Validar Documento</h2>
+                </div>
+                <form id="validationForm">
+                    <div class="input-wrapper">
+                        <div class="input-inner">
+                            <img src="https://flagcdn.com/w20/co.png" alt="Colombia" style="width: 22px; margin-right: 12px; border-radius: 2px;">
+                            <select id="docType" required class="custom-select">
+                                <option value="CC">Cédula Ciudadanía</option>
+                                <option value="CE">Cédula Extranjería</option>
+                                <option value="PP">Pasaporte</option>
+                            </select>
+                            <i class="fas fa-chevron-down" style="color: #6a6a7a; margin-right: 0; margin-left: auto;"></i>
+                        </div>
+                    </div>
+                    <div class="input-wrapper" style="margin-top: 20px;">
+                        <div class="input-inner">
+                            <i class="far fa-id-card"></i>
+                            <input type="number" id="docNumber" placeholder="Número de documento" required>
+                        </div>
+                    </div>
+                    <div class="checkbox-group" style="margin-top: 25px; display: flex; flex-direction: column; gap: 15px;">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" required>
+                            <span class="checkmark"></span>
+                            <p>Acepto la autorización para tratamiento de datos.</p>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" required>
+                            <span class="checkmark"></span>
+                            <p>Acepto la autorización de centrales de riesgo.</p>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-ingresar">Continuar</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- PANTALLA 4: INFORMACIÓN PERSONAL -->
+        <section id="personal-info-screen" class="hidden-screen">
+            <div class="login-card scrollable-card">
+                <button class="btn-back" id="btnBackToValidation">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </button>
+                <div class="header-brand" style="margin-bottom: 25px;">
+                    <h2 class="greeting-title" style="font-size: 1.6rem;">
+                        <i class="fas fa-folder-open" style="color: #48cae4; margin-right: 10px;"></i>
+                        Información Personal
+                    </h2>
+                </div>
+                <form id="personalInfoForm" class="compact-form">
+                    <div class="form-grid">
+                        <div class="input-wrapper"><div class="input-inner"><input type="text" placeholder="Primer Nombre" required></div></div>
+                        <div class="input-wrapper"><div class="input-inner"><input type="text" placeholder="Segundo Nombre (Opcional)"></div></div>
+                        <div class="input-wrapper"><div class="input-inner"><input type="text" placeholder="Primer Apellido" required></div></div>
+                        <div class="input-wrapper"><div class="input-inner"><input type="text" placeholder="Segundo Apellido (Opcional)"></div></div>
+                    </div>
+                    <div class="input-wrapper" style="margin-top: 15px;">
+                        <div class="input-inner"><i class="far fa-calendar-alt"></i><input type="text" placeholder="Fecha nacimiento" onfocus="(this.type='date')" onblur="(this.type='text')" required></div>
+                    </div>
+                    
+                    <div class="form-grid" style="margin-top: 15px;">
+                        <div class="input-wrapper">
+                            <div class="input-inner">
+                                <select id="deptNacimiento" required class="custom-select">
+                                    <option value="" disabled selected>Dept. Nacimiento</option>
+                                </select>
+                                <i class="fas fa-chevron-down select-icon"></i>
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <div class="input-inner"><input type="text" placeholder="Ciudad Nacimiento" required></div>
+                        </div>
+                    </div>
+
+                    <div class="input-wrapper" style="margin-top: 15px;">
+                        <div class="input-inner">
+                            <span class="input-prefix">+57</span><div class="prefix-divider"></div>
+                            <input type="tel" placeholder="Número Celular" required>
+                        </div>
+                    </div>
+                    <div class="input-wrapper" style="margin-top: 15px;">
+                        <div class="input-inner">
+                            <span class="input-prefix" style="color: #48cae4;">@</span>
+                            <div class="prefix-divider"></div>
+                            <input type="email" placeholder="Email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-divider" style="margin: 20px 0;"></div>
+
+                    <div class="gender-group" style="margin-bottom: 20px;">
+                        <span class="gender-label-main">Selecciona Sexo:</span>
+                        <div class="toggle-wrapper">
+                            <input type="radio" id="sex-m" name="sexo" value="Hombre" checked>
+                            <label for="sex-m">Hombre</label>
+                            
+                            <input type="radio" id="sex-f" name="sexo" value="Mujer">
+                            <label for="sex-f">Mujer</label>
+                        </div>
+                    </div>
+
+                    <div class="input-wrapper">
+                        <div class="input-inner">
+                            <select required class="custom-select">
+                                <option value="" disabled selected>Actividad Económica</option>
+                                <option value="Empleado">Empleado</option>
+                                <option value="Independiente">Independiente</option>
+                                <option value="Pensionado">Pensionado</option>
+                                <option value="Estudiante">Estudiante</option>
+                            </select>
+                            <i class="fas fa-chevron-down select-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-grid" style="margin-top: 15px;">
+                        <div class="input-wrapper">
+                            <div class="input-inner">
+                                <select id="deptResidencia" required class="custom-select">
+                                    <option value="" disabled selected>Dept. Residencia</option>
+                                </select>
+                                <i class="fas fa-chevron-down select-icon"></i>
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <div class="input-inner"><input type="text" placeholder="Ciudad Residencia" required></div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-ingresar" style="margin-top: 25px;">Continuar</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- PANTALLA 5: DATOS DEL CRÉDITO Y EQUIPO -->
+        <section id="credit-info-screen" class="hidden-screen">
+            <div class="login-card scrollable-card">
+                <!-- ID cambiado a btnBackFromCredit para que sea inteligente -->
+                <button class="btn-back" id="btnBackFromCredit">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </button>
+
+                <div class="header-brand" style="margin-bottom: 25px;">
+                    <h2 class="greeting-title" style="font-size: 1.6rem;">
+                        <i class="fas fa-mobile-alt" style="color: #9d4edd; margin-right: 10px;"></i>
+                        Elegir Artículo
+                    </h2>
+                </div>
+
+                <form id="creditInfoForm" class="compact-form">
+                    
+                    <div class="input-wrapper">
+                        <div class="input-inner">
+                            <select id="itemType" required class="custom-select">
+                                <option value="" disabled selected>Tipo de Artículo</option>
+                                <option value="Celular">Celular / Smartphone</option>
+                                <option value="Computador">Computador / Laptop</option>
+                                <option value="Audio">Audio / Micrófono / Parlante</option>
+                                <option value="Accesorios">Accesorios</option>
+                                <option value="Otro">Otro Artículo</option>
+                            </select>
+                            <i class="fas fa-chevron-down select-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="input-wrapper" style="margin-top: 15px;">
+                        <div class="input-inner">
+                            <i class="fas fa-tag" style="color: #6a6a7a; margin-right: 15px;"></i>
+                            <input type="text" id="itemReference" placeholder="Marca y Referencia exacta" required>
+                        </div>
+                    </div>
+
+                    <div class="form-divider" style="margin: 20px 0;"></div>
+
+                    <p style="color: #a0a0b0; font-size: 0.85rem; margin-bottom: 10px;">Digita el valor del artículo:</p>
+                    <div class="input-wrapper">
+                        <div class="input-inner">
+                            <span class="input-prefix" style="color: #48cae4;">$</span>
+                            <div class="prefix-divider"></div>
+                            <input type="text" id="valorArticulo" placeholder="Ej: 800.000" required>
+                        </div>
+                    </div>
+
+                    <p style="color: #a0a0b0; font-size: 0.85rem; margin-top: 15px; margin-bottom: 10px;">Digita el valor de cuota inicial:</p>
+                    <div class="input-wrapper">
+                        <div class="input-inner">
+                            <span class="input-prefix" style="color: #9d4edd;">$</span>
+                            <div class="prefix-divider"></div>
+                            <input type="text" id="cuotaInicial" placeholder="Ej: 200.000" required>
+                        </div>
+                    </div>
+
+                    <div class="form-divider" style="margin: 20px 0;"></div>
+                    <p style="color: #ffffff; font-size: 0.9rem; text-align: center; margin-bottom: 15px;">Seleccione una opción de cuotas:</p>
+
+                    <div class="quotas-container" id="quotasContainer">
+                        <label class="quota-card">
+                            <input type="radio" name="plan_cuotas" value="4_quincenas" required>
+                            <div class="quota-inner">
+                                <div class="quota-badge blue-badge">4</div>
+                                <div class="quota-text">Cuotas<br>Quincenales</div>
+                                <div class="quota-price" id="lbl_4q">$0</div>
+                            </div>
+                        </label>
+                        <label class="quota-card">
+                            <input type="radio" name="plan_cuotas" value="6_quincenas">
+                            <div class="quota-inner">
+                                <div class="quota-badge blue-badge">6</div>
+                                <div class="quota-text">Cuotas<br>Quincenales</div>
+                                <div class="quota-price" id="lbl_6q">$0</div>
+                            </div>
+                        </label>
+                        <label class="quota-card">
+                            <input type="radio" name="plan_cuotas" value="2_meses">
+                            <div class="quota-inner">
+                                <div class="quota-badge purple-badge">2</div>
+                                <div class="quota-text">Cuotas<br>Mensuales</div>
+                                <div class="quota-price" id="lbl_2m">$0</div>
+                            </div>
+                        </label>
+                        <label class="quota-card">
+                            <input type="radio" name="plan_cuotas" value="3_meses">
+                            <div class="quota-inner">
+                                <div class="quota-badge purple-badge">3</div>
+                                <div class="quota-text">Cuotas<br>Mensuales</div>
+                                <div class="quota-price" id="lbl_3m">$0</div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-ingresar" style="margin-top: 25px;">Registrar Venta a Crédito</button>
+                </form>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        const usuariosTecnoAldy = {
+            "cuentauueeduber@gmail.com": "DUBER",
+            "tecnoaldy2022@gmail.com": "ALDY",
+        };
+
+        const departamentosColombia = [
+            "Amazonas", "Antioquia", "Arauca", "Atlántico", "Bolívar", "Boyacá", "Caldas",
+            "Caquetá", "Casanare", "Cauca", "Cesar", "Chocó", "Córdoba", "Cundinamarca",
+            "Guainía", "Guaviare", "Huila", "La Guajira", "Magdalena", "Meta", "Nariño",
+            "Norte de Santander", "Putumayo", "Quindío", "Risaralda", "San Andrés y Providencia",
+            "Santander", "Sucre", "Tolima", "Valle del Cauca", "Vaupés", "Vichada"
+        ];
+
+        // --- SISTEMA DE BASE DE DATOS SIMULADA ---
+        function obtenerClientesRegistrados() {
+            let clientesStr = localStorage.getItem('bd_clientes_tecnoaldy');
+            return clientesStr ? JSON.parse(clientesStr) : {};
+        }
+        function guardarCliente(cedula) {
+            let clientes = obtenerClientesRegistrados();
+            clientes[cedula] = { registrado: true };
+            localStorage.setItem('bd_clientes_tecnoaldy', JSON.stringify(clientes));
+        }
+
+        let cedulaActualTramite = ""; // Variable para saber a quién estamos atendiendo
+        let elClienteEsAntiguo = false; 
+
+        // Elementos
+        const loginForm = document.getElementById('loginForm');
+        const btnLogout = document.getElementById('btnLogout');
+        const btnNuevoCredito = document.getElementById('btnNuevoCredito');
+        const btnBackToDash = document.getElementById('btnBackToDash');
+        const btnBackToValidation = document.getElementById('btnBackToValidation');
+        const btnBackFromCredit = document.getElementById('btnBackFromCredit');
+        
+        const validationForm = document.getElementById('validationForm');
+        const personalInfoForm = document.getElementById('personalInfoForm');
+        const creditInfoForm = document.getElementById('creditInfoForm');
+        
+        const loginScreen = document.getElementById('login-screen');
+        const dashboardScreen = document.getElementById('dashboard-screen');
+        const validationScreen = document.getElementById('validation-screen');
+        const personalInfoScreen = document.getElementById('personal-info-screen');
+        const creditInfoScreen = document.getElementById('credit-info-screen');
+        const userNameSpan = document.getElementById('userName');
+
+        function irAPantalla(pantallaOcultar, pantallaMostrar) {
+            pantallaOcultar.classList.replace('active-screen', 'hidden-screen');
+            pantallaMostrar.classList.replace('hidden-screen', 'active-screen');
+            localStorage.setItem('pantallaActualTecnoAldy', pantallaMostrar.id);
+        }
+
+        window.onload = function() {
+            const selectNacimiento = document.getElementById('deptNacimiento');
+            const selectResidencia = document.getElementById('deptResidencia');
+            
+            departamentosColombia.forEach(dept => {
+                let opt1 = document.createElement('option'); opt1.value = dept; opt1.textContent = dept; selectNacimiento.appendChild(opt1);
+                let opt2 = document.createElement('option'); opt2.value = dept; opt2.textContent = dept; selectResidencia.appendChild(opt2);
+            });
+
+            const usuarioGuardado = localStorage.getItem('usuarioTecnoAldy');
+            const pantallaGuardada = localStorage.getItem('pantallaActualTecnoAldy');
+
+            if (usuarioGuardado) {
+                userNameSpan.textContent = usuarioGuardado;
+                loginScreen.classList.replace('active-screen', 'hidden-screen');
+                if (pantallaGuardada && document.getElementById(pantallaGuardada)) {
+                    document.getElementById(pantallaGuardada).classList.replace('hidden-screen', 'active-screen');
+                } else {
+                    dashboardScreen.classList.replace('hidden-screen', 'active-screen');
+                }
+            }
+        };
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const emailIngresado = document.getElementById('email').value.trim().toLowerCase();
+            let nombreUsuario = usuariosTecnoAldy[emailIngresado] ? usuariosTecnoAldy[emailIngresado] : emailIngresado.split('@')[0].toUpperCase();
+            userNameSpan.textContent = nombreUsuario;
+            localStorage.setItem('usuarioTecnoAldy', nombreUsuario);
+            irAPantalla(loginScreen, dashboardScreen);
+        });
+
+        btnLogout.addEventListener('click', function() {
+            document.getElementById('email').value = ''; document.getElementById('password').value = '';
+            localStorage.removeItem('usuarioTecnoAldy'); localStorage.removeItem('pantallaActualTecnoAldy');
+            document.querySelectorAll('section').forEach(p => { p.classList.remove('active-screen'); p.classList.add('hidden-screen'); });
+            loginScreen.classList.replace('hidden-screen', 'active-screen');
+        });
+
+        btnNuevoCredito.addEventListener('click', () => irAPantalla(dashboardScreen, validationScreen));
+        btnBackToDash.addEventListener('click', () => irAPantalla(validationScreen, dashboardScreen));
+        
+        // --- AQUÍ OCURRE LA MAGIA DE DETECTAR AL CLIENTE ---
+        validationForm.addEventListener('submit', (e) => { 
+            e.preventDefault(); 
+            cedulaActualTramite = document.getElementById('docNumber').value;
+            let clientesBaseDatos = obtenerClientesRegistrados();
+
+            if(clientesBaseDatos[cedulaActualTramite]) {
+                // EL CLIENTE EXISTE: Salta a la venta del equipo
+                elClienteEsAntiguo = true;
+                irAPantalla(validationScreen, creditInfoScreen);
+            } else {
+                // EL CLIENTE ES NUEVO: Pasa a pedir los datos
+                elClienteEsAntiguo = false;
+                irAPantalla(validationScreen, personalInfoScreen);
+            }
+        });
+
+        btnBackToValidation.addEventListener('click', () => irAPantalla(personalInfoScreen, validationScreen));
+        
+        // --- GUARDAR AL NUEVO CLIENTE ---
+        personalInfoForm.addEventListener('submit', (e) => { 
+            e.preventDefault(); 
+            guardarCliente(cedulaActualTramite); // Guarda la cédula en la BD
+            irAPantalla(personalInfoScreen, creditInfoScreen); 
+        });
+
+        // --- BOTON VOLVER INTELIGENTE DESDE LA VENTA ---
+        btnBackFromCredit.addEventListener('click', () => {
+            if(elClienteEsAntiguo) {
+                irAPantalla(creditInfoScreen, validationScreen);
+            } else {
+                irAPantalla(creditInfoScreen, personalInfoScreen);
+            }
+        });
+
+        // --- LÓGICA DE NÚMEROS E INTERESES ---
+        const inputValor = document.getElementById('valorArticulo');
+        const inputInicial = document.getElementById('cuotaInicial');
+        const itemType = document.getElementById('itemType');
+        
+        const lbl_4q = document.getElementById('lbl_4q'); const lbl_6q = document.getElementById('lbl_6q');
+        const lbl_2m = document.getElementById('lbl_2m'); const lbl_3m = document.getElementById('lbl_3m');
+
+        function formatoMiles(inputElement) {
+            let valorLimpio = inputElement.value.replace(/\D/g, '');
+            if(valorLimpio === "") { inputElement.value = ""; return; }
+            inputElement.value = valorLimpio.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        function calcularInicialAutomatica() {
+            let valor = parseInt(inputValor.value.replace(/\D/g, '')) || 0;
+            let tipo = itemType.value;
+
+            if (valor > 0 && tipo) {
+                let porcentaje = 0;
+                if (tipo === 'Celular') porcentaje = 200000 / 700000; 
+                else if (tipo === 'Computador') porcentaje = 0.35; 
+                else if (tipo === 'Audio') porcentaje = 0.25; 
+                else if (tipo === 'Accesorios') porcentaje = 10000 / 30000; 
+                else porcentaje = 0.30;
+
+                let inicialCalc = Math.round((valor * porcentaje) / 1000) * 1000;
+                inputInicial.value = inicialCalc.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                calcularCuotas();
+            }
+        }
+
+        function calcularCuotas() {
+            let valor = parseInt(inputValor.value.replace(/\D/g, '')) || 0;
+            let inicial = parseInt(inputInicial.value.replace(/\D/g, '')) || 0;
+            
+            let interesFijo = 180000; 
+            if (valor >= 1000000) { interesFijo = 300000; }
+
+            let saldoRestante = valor - inicial;
+            
+            if(valor > 0 && saldoRestante >= 0) {
+                let totalADiferir = saldoRestante + interesFijo;
+                let formater = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 });
+
+                lbl_4q.textContent = formater.format(totalADiferir / 4); lbl_6q.textContent = formater.format(totalADiferir / 6);
+                lbl_2m.textContent = formater.format(totalADiferir / 2); lbl_3m.textContent = formater.format(totalADiferir / 3);
+            } else {
+                lbl_4q.textContent = "$0"; lbl_6q.textContent = "$0";
+                lbl_2m.textContent = "$0"; lbl_3m.textContent = "$0";
+            }
+        }
+
+        itemType.addEventListener('change', calcularInicialAutomatica);
+        inputValor.addEventListener('input', function() { formatoMiles(this); calcularInicialAutomatica(); });
+        inputInicial.addEventListener('input', function() { formatoMiles(this); calcularCuotas(); });
+
+        creditInfoForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Venta registrada con éxito en TecnoAldy! Próximamente esto alimentará el Historial.');
+            irAPantalla(creditInfoScreen, dashboardScreen);
+            creditInfoForm.reset();
+            validationForm.reset();
+            calcularCuotas();
+        });
+
+    </script>
+</body>
+</html>
